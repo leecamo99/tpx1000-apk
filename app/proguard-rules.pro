@@ -1,0 +1,4 @@
+-keepclassmembers class * { @android.webkit.JavascriptInterface <methods>; }
+-keep class com.tpx1000.app.MainActivity$ShellBridge { *; }
+-keep class com.tpx1000.app.BackgroundMediaWebView { public <init>(...); }
+-keep class com.tpx1000.app.PlaybackService { *; }

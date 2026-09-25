@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.TPX1000" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/tpx_accent</item>
+        <item name="colorPrimaryDark">@color/tpx_accent_dark</item>
+        <item name="colorAccent">@color/tpx_accent</item>
+        <item name="android:windowBackground">@color/tpx_bg</item>
+        <item name="android:statusBarColor">@color/tpx_accent_dark</item>
+        <item name="android:navigationBarColor">@color/tpx_bg</item>
+    </style>
+</resources>

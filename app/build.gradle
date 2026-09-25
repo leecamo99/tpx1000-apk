@@ -1,0 +1,68 @@
+plugins { id 'com.android.application' }
+
+def tpxUrl = (project.findProperty('tpxUrl') ?: 'https://example.github.io/tpx1000/').toString()
+
+android {
+    namespace 'com.tpx1000.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.tpx1000.app"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+        buildConfigField "String", "TPX_URL", "\"${tpxUrl}\""
+    }
+
+    buildFeatures { buildConfig true }
+
+    signingConfigs {
+        release {
+            def ksPath = System.getenv("KEYSTORE_PATH")
+            if (ksPath != null && file(ksPath).exists()) {
+                storeFile file(ksPath)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        debug { minifyEnabled false }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (System.getenv("KEYSTORE_PATH") != null) { signingConfig signingConfigs.release }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        encoding = 'UTF-8'
+    }
+
+    lint { abortOnError false; checkReleaseBuilds false }
+}
+
+configurations.configureEach {
+    // androidx.media 會拉進舊的 kotlin-stdlib-jdk7/jdk8 1.6.21，
+    // 但新版 kotlin-stdlib 已把那些類別併入主 jar，兩者共存會造成
+    // checkDebugDuplicateClasses 失敗。排除舊分支即可。
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.activity:activity:1.9.2'
+    implementation 'androidx.media:media:1.7.0'
+
+    // 明確鎖定單一版本，避免傳遞依賴帶進不同版本
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }

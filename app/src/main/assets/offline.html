@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>連線失敗</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,"Noto Sans TC",sans-serif;background:#0d0d0d;color:#eee;
+       min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+  .card{max-width:420px;width:100%;text-align:center}
+  .mark{font-size:56px;line-height:1;margin-bottom:18px}
+  h1{font-size:20px;font-weight:800;margin-bottom:10px;color:#e86f00}
+  p{font-size:14px;line-height:1.75;color:#aaa;margin-bottom:6px}
+  code{background:#1c1c1c;border:1px solid #2c2c2c;border-radius:6px;padding:3px 7px;
+       font-size:12px;color:#d8863f;word-break:break-all;display:inline-block;margin-top:4px}
+  .btns{margin-top:26px;display:flex;flex-direction:column;gap:10px}
+  button{width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:700;border:none}
+  .primary{background:#c45c1a;color:#fff}
+  .ghost{background:transparent;border:2px solid #3a3a3a;color:#bbb}
+  .hint{margin-top:22px;font-size:12px;color:#666;line-height:1.7}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="mark">📡</div>
+    <h1>連不上 TPX1000</h1>
+    <p>可能是網路斷線，或設定的網址不正確。</p>
+    <p><code id="u">—</code></p>
+    <div class="btns">
+      <button class="primary" onclick="retry()">重新連線</button>
+      <button class="ghost" onclick="settings()">修改網址</button>
+    </div>
+    <p class="hint">提示：長按返回鍵，或長按桌面圖示選「設定網址」，<br>隨時都可以改成別的部署位置。</p>
+  </div>
+<script>
+  try { document.getElementById('u').textContent = TPXShell.url(); } catch (e) {}
+  function retry()    { try { TPXShell.retry(); }        catch (e) { location.reload(); } }
+  function settings() { try { TPXShell.openSettings(); } catch (e) {} }
+</script>
+</body>
+</html>

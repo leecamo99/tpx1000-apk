@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">金フレ</string>
+    <string name="shortcut_settings_short">設定網址</string>
+    <string name="shortcut_settings_long">修改 TPX1000 網址</string>
+    <string name="playback_channel">背景播放</string>
+    <string name="playback_channel_desc">關閉螢幕時讓音檔與朗讀繼續播放</string>
+    <string name="playback_running">播放中，可關閉螢幕</string>
+    <string name="playback_toggle">播放/暫停</string>
+    <string name="playback_stop">停止</string>
+</resources>
